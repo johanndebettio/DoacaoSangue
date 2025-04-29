@@ -9,7 +9,7 @@ Tela com opção de acesso ou cadastro de usuário.
 
 Caso o usuário seja um usuário comum, ao logar ele pode tanto registrar uma oferta de doação de sangue quanto uma solicitação.
 
-Caso o usuário seja um administrador, ele pode visualizar todas as ofertas e solicitações disponíveis, pode verificar os procedimentos viáveis para serem realizados (tipo sanguíneo de recebedor e doador compatíveis) e também pode alterar os dados de um usuário como excluir um usuário.
+Caso o usuário seja um administrador, ele pode visualizar todas as ofertas e solicitações disponíveis, pode verificar os procedimentos viáveis para serem realizados (tipo sanguíneo de recebedor e doador compatíveis) e também pode tanto alterar os dados de um usuário como excluir um usuário.
 
 O aplicativo conta com validações para e-mail, senha (mínimo 8 caracteres, sendo 1 maiúscula, 1 minúscula, 1 caractere especial e 1 número como requisitos obrigatórios) a senha é criptografada no banco. Validação para formato de número de telefone. Também conta com verificações que possibilitam visualizar procedimentos viáveis, onde há compatibilidade entre o doador e o receptor. 
 
