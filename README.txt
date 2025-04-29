@@ -15,4 +15,15 @@ O aplicativo conta com validações para e-mail, senha (mínimo 8 caracteres, se
 
 Conta com recursos como verificação de restrição de chave estrangeira na hora da exclusão do usuário, destruição da sessão caso o usuário exclua a própria conta, validações que impedem ações indesejadas, etc.
 
+Os logins e senhas cadastrados até então são:
+
+Usuários Comuns:
+login: ana@gmail.com senha: Ana1234! 
+login: felipe@gmail.com senha: Felipe123!
+login: maria@gmail.com senha: Maria123!
+login: joao@gmail.com senha: Joao123!
+
+Administradores:
+login: johan@gmail.com senha: Johan123!
+
 Essa é a primeira versão do aplicativo, desenvolvido inteiramente por Johan Debtil.  
