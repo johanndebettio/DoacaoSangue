@@ -8,6 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Novo Usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --cor-principal: #6a4c93;
@@ -34,14 +35,15 @@ if (session_status() === PHP_SESSION_NONE) {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 20px;
         }
 
         .form-card {
             background: linear-gradient(145deg, var(--cor-principal), #5e35b1);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 16px;
-            width: 800px;
+            width: 100%;
+            max-width: 900px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             color: var(--cor-texto);
             transition: transform 0.3s ease;
@@ -63,16 +65,20 @@ if (session_status() === PHP_SESSION_NONE) {
             gap: 1rem;
         }
 
-        .form-group {
-            flex: 1 1 calc(50% - 1rem);
+        .form-group,
+        .form-group-full {
             display: flex;
             flex-direction: column;
+            width: 100%;
         }
 
-        .form-group-full {
-            flex: 1 1 100%;
-            display: flex;
-            flex-direction: column;
+        @media (min-width: 600px) {
+            .form-group {
+                width: calc(50% - 0.5rem);
+            }
+            .form-group-full {
+                width: 100%;
+            }
         }
 
         .form-card label {
@@ -152,10 +158,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 } else {
                     valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
                 }
-                e.target.value = valor;
-                if (e.target.value.length > 15) {
-                    e.target.value = e.target.value.substring(0, 15);
-                }
+                e.target.value = valor.substring(0, 15);
             });
         });
     </script>
@@ -164,7 +167,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <div class="form-card">
     <h2>Cadastro de Novo Usuário</h2>
-
     <form action="http://localhost/DoacaoSangue/controllers/cadastro.controller.php" method="POST">
         <div class="form-grid">
 
@@ -277,7 +279,6 @@ if (session_status() === PHP_SESSION_NONE) {
                 <label for="alergias">Alergias:</label>
                 <textarea name="alergias" id="alergias" placeholder="Descreva suas alergias, se houver."></textarea>
             </div>
-
         </div>
 
         <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
