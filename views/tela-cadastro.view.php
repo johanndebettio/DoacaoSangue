@@ -41,7 +41,7 @@ if (session_status() === PHP_SESSION_NONE) {
             background: linear-gradient(145deg, var(--cor-principal), #5e35b1);
             padding: 2.5rem;
             border-radius: 16px;
-            width: 460px;
+            width: 800px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             color: var(--cor-texto);
             transition: transform 0.3s ease;
@@ -57,15 +57,30 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 1.6rem;
         }
 
+        .form-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .form-group {
+            flex: 1 1 calc(50% - 1rem);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-full {
+            flex: 1 1 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
         .form-card label {
-            display: block;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             font-size: 0.9rem;
         }
 
-        .form-card input[type="text"],
-        .form-card input[type="email"],
-        .form-card input[type="password"],
+        .form-card input,
         .form-card select,
         .form-card textarea {
             width: 100%;
@@ -124,12 +139,12 @@ if (session_status() === PHP_SESSION_NONE) {
             color: #666;
         }
     </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const telefoneInput = document.getElementById('telefone');
             telefoneInput.addEventListener('input', function (e) {
                 let valor = e.target.value.replace(/\D/g, '');
-
                 if (valor.length <= 2) {
                     valor = valor.replace(/(\d{2})/, '($1) ');
                 } else if (valor.length <= 7) {
@@ -137,9 +152,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 } else {
                     valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
                 }
-
                 e.target.value = valor;
-
                 if (e.target.value.length > 15) {
                     e.target.value = e.target.value.substring(0, 15);
                 }
@@ -153,89 +166,119 @@ if (session_status() === PHP_SESSION_NONE) {
     <h2>Cadastro de Novo Usuário</h2>
 
     <form action="http://localhost/DoacaoSangue/controllers/cadastro.controller.php" method="POST">
+        <div class="form-grid">
 
-        <label for="nome_completo">Nome:</label>
-        <input type="text" name="nome" id="nome" required>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" required>
+            </div>
 
-        <label for="email">Email (será seu login):</label>
-        <input type="text" name="email" id="email" required placeholder="exemplo@dominio.com">
+            <div class="form-group">
+                <label for="email">Email (será seu login):</label>
+                <input type="text" name="email" id="email" required placeholder="exemplo@dominio.com">
+            </div>
 
-        <label for="senha">Senha:</label>
-        <input type="password" name="pass" id="senha" required>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" name="pass" id="senha" required>
+            </div>
 
-        <label for="confirmar_senha">Confirmar Senha:</label>
-        <input type="password" name="confirmar_senha" id="confirmar_senha" required>
+            <div class="form-group">
+                <label for="confirmar_senha">Confirmar Senha:</label>
+                <input type="password" name="confirmar_senha" id="confirmar_senha" required>
+            </div>
 
-        <label for="telefone">Telefone: (xx) xxxxx-xxxx:</label>
-        <input type="text" name="telefone" id="telefone" required pattern="^\(\d{2}\) \d{5}-\d{4}$"
-               placeholder="(xx) xxxxx-xxxx" maxlength="15">
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" name="telefone" id="telefone" required pattern="^\(\d{2}\) \d{5}-\d{4}$" placeholder="(xx) xxxxx-xxxx" maxlength="15">
+            </div>
 
-        <label for="pais">País:</label>
-        <input type="text" id="pais" value="Brasil" readonly disabled>
-        <input type="hidden" name="pais" value="Brasil">
+            <div class="form-group">
+                <label for="pais">País:</label>
+                <input type="text" id="pais" value="Brasil" readonly disabled>
+                <input type="hidden" name="pais" value="Brasil">
+            </div>
 
-        <label for="estado">Estado:</label>
-        <select name="estado" id="estado" required>
-            <option value="">Selecione o estado</option>
-            <option value="Acre">Acre</option>
-            <option value="Alagoas">Alagoas</option>
-            <option value="Amapá">Amapá</option>
-            <option value="Amazonas">Amazonas</option>
-            <option value="Bahia">Bahia</option>
-            <option value="Ceará">Ceará</option>
-            <option value="Espírito Santo">Espírito Santo</option>
-            <option value="Goiás">Goiás</option>
-            <option value="Maranhão">Maranhão</option>
-            <option value="Mato Grosso">Mato Grosso</option>
-            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-            <option value="Minas Gerais">Minas Gerais</option>
-            <option value="Pará">Pará</option>
-            <option value="Paraíba">Paraíba</option>
-            <option value="Paraná">Paraná</option>
-            <option value="Pernambuco">Pernambuco</option>
-            <option value="Piauí">Piauí</option>
-            <option value="Rio de Janeiro">Rio de Janeiro</option>
-            <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-            <option value="Rondônia">Rondônia</option>
-            <option value="Roraima">Roraima</option>
-            <option value="Santa Catarina">Santa Catarina</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="Sergipe">Sergipe</option>
-            <option value="Tocantins">Tocantins</option>
-            <option value="Distrito Federal">Distrito Federal</option>
-        </select>
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select name="estado" id="estado" required>
+                    <option value="">Selecione o estado</option>
+                    <option value="Acre">Acre</option>
+                    <option value="Alagoas">Alagoas</option>
+                    <option value="Amapá">Amapá</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Bahia">Bahia</option>
+                    <option value="Ceará">Ceará</option>
+                    <option value="Espírito Santo">Espírito Santo</option>
+                    <option value="Goiás">Goiás</option>
+                    <option value="Maranhão">Maranhão</option>
+                    <option value="Mato Grosso">Mato Grosso</option>
+                    <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                    <option value="Minas Gerais">Minas Gerais</option>
+                    <option value="Pará">Pará</option>
+                    <option value="Paraíba">Paraíba</option>
+                    <option value="Paraná">Paraná</option>
+                    <option value="Pernambuco">Pernambuco</option>
+                    <option value="Piauí">Piauí</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                    <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                    <option value="Rondônia">Rondônia</option>
+                    <option value="Roraima">Roraima</option>
+                    <option value="Santa Catarina">Santa Catarina</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Sergipe">Sergipe</option>
+                    <option value="Tocantins">Tocantins</option>
+                    <option value="Distrito Federal">Distrito Federal</option>
+                </select>
+            </div>
 
-        <label for="cidade">Cidade:</label>
-        <input type="text" name="cidade" id="cidade" required>
+            <div class="form-group">
+                <label for="cidade">Cidade:</label>
+                <input type="text" name="cidade" id="cidade" required>
+            </div>
 
-        <label for="bairro">Bairro:</label>
-        <input type="text" name="bairro" id="bairro" required>
+            <div class="form-group">
+                <label for="bairro">Bairro:</label>
+                <input type="text" name="bairro" id="bairro" required>
+            </div>
 
-        <label for="rua">Rua:</label>
-        <input type="text" name="rua" id="rua" required>
+            <div class="form-group">
+                <label for="rua">Rua:</label>
+                <input type="text" name="rua" id="rua" required>
+            </div>
 
-        <label for="numero">Número:</label>
-        <input type="text" name="numero" id="numero" required>
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input type="text" name="numero" id="numero" required>
+            </div>
 
-        <label for="complemento">Complemento:</label>
-        <input type="text" name="complemento" id="complemento">
+            <div class="form-group">
+                <label for="complemento">Complemento:</label>
+                <input type="text" name="complemento" id="complemento">
+            </div>
 
-        <label for="tipo_sanguineo">Tipo Sanguíneo:</label>
-        <select name="tipo_sanguineo" id="tipo_sanguineo" required>
-            <option value="">Selecione o tipo sanguíneo</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-        </select>
+            <div class="form-group">
+                <label for="tipo_sanguineo">Tipo Sanguíneo:</label>
+                <select name="tipo_sanguineo" id="tipo_sanguineo" required>
+                    <option value="">Selecione o tipo sanguíneo</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+            </div>
 
-        <label for="alergias">Alergias:</label>
-        <textarea name="alergias" id="alergias" placeholder="Descreva suas alergias, se houver."></textarea>
+            <div class="form-group-full">
+                <label for="alergias">Alergias:</label>
+                <textarea name="alergias" id="alergias" placeholder="Descreva suas alergias, se houver."></textarea>
+            </div>
+
+        </div>
 
         <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
     </form>
