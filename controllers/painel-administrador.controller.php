@@ -26,7 +26,7 @@ class PainelAdministradorController
         foreach ($solicitacoes as $s) {
             foreach ($ofertas as $o) {
                 if ($s['local'] === $o['local'] &&
-                    DoacaoModel::tiposCompatíveis($s['tipo_sanguineo'], $o['tipo_sanguineo'])) {
+                    DoacaoModel::tiposCompativeis($s['tipo_sanguineo'], $o['tipo_sanguineo'])) {
                     $procedimentosViaveis[] = [
                         'solicitacao' => $s,
                         'oferta' => $o
@@ -39,7 +39,7 @@ class PainelAdministradorController
             $encontrouCompatibilidade = false;
             foreach ($solicitacoes as $solicitacao) {
                 if ($solicitacao['local'] === $oferta['local'] &&
-                    DoacaoModel::tiposCompatíveis($solicitacao['tipo_sanguineo'], $oferta['tipo_sanguineo'])) {
+                    DoacaoModel::tiposCompativeis($solicitacao['tipo_sanguineo'], $oferta['tipo_sanguineo'])) {
                     $encontrouCompatibilidade = true;
                     break;
                 }

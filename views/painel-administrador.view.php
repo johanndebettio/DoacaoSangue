@@ -24,18 +24,15 @@ if ($mostrarViaveis) {
     foreach ($solicitacoes as $s) {
         foreach ($ofertas as $o) {
             if ($s['local'] === $o['local'] &&
-                DoacaoModel::tiposCompatíveis($s['tipo_sanguineo'], $o['tipo_sanguineo'])) {
+                DoacaoModel::tiposCompativeis($s['tipo_sanguineo'], $o['tipo_sanguineo'])) {
                 $procedimentosViaveis[] = ['solicitacao' => $s, 'oferta' => $o];
             }
         }
     }
 }
 
-$doacoesPendentes = $ofertas;
-
-// Gera URLs para os botões
 $queryViaveis = http_build_query(['viaveis' => 1]);
-$querySemViaveis = ''; // voltar sem filtros
+$querySemViaveis = '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -120,6 +117,22 @@ $querySemViaveis = ''; // voltar sem filtros
         .top-bar .right form {
             margin: 0;
         }
+
+        .excluir-form {
+            display: inline;
+        }
+
+        .excluir-form button {
+            background: none;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .excluir-form button:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -145,9 +158,8 @@ $querySemViaveis = ''; // voltar sem filtros
 
 <?php if (!$mostrarViaveis): ?>
     <form method="GET" action="">
-        <input type="text" id="local" name="local" placeholder="Filtrar por local"
-               value="<?= htmlspecialchars($local) ?>">
-        <select id="tipo" name="tipo">
+        <input type="text" name="local" placeholder="Filtrar por local" value="<?= htmlspecialchars($local) ?>">
+        <select name="tipo">
             <option value="">Todos os tipos sanguíneos</option>
             <?php
             $tipos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
@@ -159,9 +171,7 @@ $querySemViaveis = ''; // voltar sem filtros
         </select>
         <button type="submit" class="btn-roxo">Pesquisar</button>
     </form>
-<?php endif; ?>
 
-<?php if (!$mostrarViaveis): ?>
     <h3>Solicitações de Doação</h3>
     <?php if (!empty($solicitacoes)): ?>
         <table>
@@ -171,6 +181,7 @@ $querySemViaveis = ''; // voltar sem filtros
                 <th>Tipo Sanguíneo</th>
                 <th>Local</th>
                 <th>Data</th>
+                <th>Ação</th>
             </tr>
             </thead>
             <tbody>
@@ -180,6 +191,14 @@ $querySemViaveis = ''; // voltar sem filtros
                     <td><?= htmlspecialchars($s['tipo_sanguineo']) ?></td>
                     <td><?= htmlspecialchars($s['local']) ?></td>
                     <td><?= htmlspecialchars($s['data_criacao']) ?></td>
+                    <td>
+                        <form class="excluir-form" method="POST" action="../controllers/excluir-doacao.controller.php"
+                              onsubmit="return confirm('Deseja realmente excluir esta solicitação?');">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($s['id']) ?>">
+                            <input type="hidden" name="tipo" value="solicitacao">
+                            <button type="submit">🗑️</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -189,7 +208,7 @@ $querySemViaveis = ''; // voltar sem filtros
     <?php endif; ?>
 
     <h3>Ofertas de Doação</h3>
-    <?php if (!empty($doacoesPendentes)): ?>
+    <?php if (!empty($ofertas)): ?>
         <table>
             <thead>
             <tr>
@@ -197,15 +216,24 @@ $querySemViaveis = ''; // voltar sem filtros
                 <th>Tipo Sanguíneo</th>
                 <th>Local</th>
                 <th>Data</th>
+                <th>Ação</th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($doacoesPendentes as $d): ?>
+            <?php foreach ($ofertas as $d): ?>
                 <tr>
                     <td><?= htmlspecialchars($d['nome']) ?></td>
                     <td><?= htmlspecialchars($d['tipo_sanguineo']) ?></td>
                     <td><?= htmlspecialchars($d['local']) ?></td>
                     <td><?= htmlspecialchars($d['data_criacao']) ?></td>
+                    <td>
+                        <form class="excluir-form" method="POST" action="../controllers/excluir-doacao.controller.php"
+                              onsubmit="return confirm('Deseja realmente excluir esta oferta?');">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($d['id']) ?>">
+                            <input type="hidden" name="tipo" value="oferta">
+                            <button type="submit">🗑️</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
