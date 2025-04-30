@@ -7,9 +7,9 @@ As funcionalidades do aplicativo são:
 
 Tela com opção de acesso ou cadastro de usuário.
 
-Caso o usuário seja um usuário comum, ao logar ele pode tanto registrar uma oferta de doação de sangue quanto uma solicitação.
+Caso o usuário seja um usuário comum, ao logar ele pode tanto registrar uma oferta de doação de sangue quanto uma solicitação e também visualizar as próprias solicitações e/ou ofertas.
 
-Caso o usuário seja um administrador, ele pode visualizar todas as ofertas e solicitações disponíveis e se quiser pode excluí-las, pode verificar os procedimentos viáveis e prontos para serem realizados (tipo sanguíneo de receptor e doador compatíveis) e também pode tanto alterar os dados de um usuário como excluir um usuário.
+Caso o usuário seja um administrador, ele pode visualizar todas as ofertas e solicitações disponíveis e se quiser pode excluí-las (há um filtro de pesquisa por local e por tipo sanguíneo), pode verificar os procedimentos viáveis e prontos para serem realizados (tipo sanguíneo de receptor e doador compatíveis) e também pode tanto alterar os dados de um usuário como excluir um usuário.
 
 O aplicativo conta com validações para e-mail, senha (mínimo 8 caracteres, sendo 1 maiúscula, 1 minúscula, 1 caractere especial e 1 número como requisitos obrigatórios) a senha é criptografada no banco. Validação para formato de número de telefone e máscara. Também conta com verificações que possibilitam visualizar procedimentos viáveis, onde há compatibilidade entre o doador e o receptor (como citado anteriormente).
 
